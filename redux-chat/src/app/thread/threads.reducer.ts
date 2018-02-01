@@ -37,6 +37,22 @@ export const ThreadsReducer = function(state: ThreadsState = initialState, actio
       };
     }
 
+    case ThreadActions.ADD_MESSAGE: {
+      const thread = (<ThreadActions.AddMessageAction>action).thread;
+      const message = (<ThreadActions.AddMessageAction>)action.message;
+
+      const isRead = message.thread.id === state.currentThreadId ? true: message.isRead;
+      const newMessage = Object.assign({}, message, {isRead: isRead});
+      const oldThread = state.entities[thread.id];
+      const newThread = Object.assign({}, oldThread, {messages: [...oldThread.messages, newMessage]});
+
+      return {
+        ids: state.ids,
+        currentThreadId: state.currentThreadId,
+        entities: Object.assign({}, state.entities, {[thread.id]: newThread})
+      };
+    }
+
     default:
       return state;
   }
