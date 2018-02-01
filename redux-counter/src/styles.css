@@ -6079,3 +6079,7 @@ button.close {
 
 .navbar-text {
   padding-right: 110px; }
+
+.text-center{
+  text-align: center !important;
+}
