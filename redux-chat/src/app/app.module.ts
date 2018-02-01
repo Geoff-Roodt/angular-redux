@@ -9,11 +9,13 @@ import { AppComponent } from './app.component';
 import {FromNowPipe} from './pipes/from-now.pipe';
 
 import {AppStore, appStoreProviders} from './app.store';
+import { ChatPageComponent } from './chat-page/chat-page.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    FromNowPipe
+    FromNowPipe,
+    ChatPageComponent
   ],
   imports: [
     BrowserModule,
