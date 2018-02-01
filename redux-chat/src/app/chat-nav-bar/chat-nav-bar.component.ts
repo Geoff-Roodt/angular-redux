@@ -18,7 +18,7 @@ export class ChatNavBarComponent {
   }
 
   updateState(){
-    this.undreadMessagesCount = getUnreadMessagesCount(this.store.getState());
+    this.unreadMessagesCount = getUnreadMessagesCount(this.store.getState());
   }
 
   ngOnInit() {

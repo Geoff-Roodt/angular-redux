@@ -25,7 +25,7 @@ export class ChatWindowComponent {
   updateState(){
     const state = this.store.getState();
     this.currentThread = getCurrentThread(state);
-    this.user = getCurrentUser(state);
+    this.currentUser = getCurrentUser(state);
     this.scrollToBottom();
   }
 

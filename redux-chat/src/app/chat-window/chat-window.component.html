@@ -18,7 +18,7 @@
 
         <div class="panel-footer">
           <div class="input-group">
-            <input type="text" class="chat-input" placeholder="Write your message here..." (keydown.enter)="onEnter($event)" [(ngModel)="draftMessage.text"] />
+            <input type="text" class="chat-input" placeholder="Write your message here..." (keydown.enter)="onEnter($event)" [(ngModel)]="draftMessage.text" />
             <span class="input-group-btn">
               <button class="btn-chat" (click)="onEnter($event)">Send</button>
             </span>

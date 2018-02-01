@@ -15,7 +15,7 @@ export interface ThreadsState{
   currentThreadId?: string;
 };
 
-const initialState: ThreadState = {
+const initialState: ThreadsState = {
   ids: [],
   currentThreadId: null,
   entities: {}
@@ -39,7 +39,7 @@ export const ThreadsReducer = function(state: ThreadsState = initialState, actio
 
     case ThreadActions.ADD_MESSAGE: {
       const thread = (<ThreadActions.AddMessageAction>action).thread;
-      const message = (<ThreadActions.AddMessageAction>)action.message;
+      const message = (<ThreadActions.AddMessageAction>action).message;
 
       const isRead = message.thread.id === state.currentThreadId ? true: message.isRead;
       const newMessage = Object.assign({}, message, {isRead: isRead});
@@ -54,7 +54,7 @@ export const ThreadsReducer = function(state: ThreadsState = initialState, actio
     }
 
     case ThreadActions.SELECT_THREAD: {
-      const thread = (<ThreadActions.SelectThreadAction>action).thread;
+      const thread = (<ThreadActions.SelectorThreadAction>action).thread;
       const oldThread = state.entities[thread.id];
 
       const newMessages = oldThread.messages.map((message) => Object.assign({}, message, {isRead:true}));
@@ -72,9 +72,9 @@ export const ThreadsReducer = function(state: ThreadsState = initialState, actio
   }
 }
 
-export const getThreasdState = (state): ThreadState => state.threads;
+export const getThreadsState = (state): ThreadsState => state.threads;
 
-export const getThreadEntities = createSelector(getThreadsState, (state: ThreadsState) => state.entities);
+export const getThreadsEntities = createSelector(getThreadsState, (state: ThreadsState) => state.entities);
 
 export const getAllThreads = createSelector(getThreadsEntities, (entities: ThreadsEntities) => Object.keys(entities).map((threadId) => entities[threadId]));
 
@@ -82,7 +82,7 @@ export const getUnreadMessagesCount = createSelector(getAllThreads, (threads: Th
   (unreadCount: number, thread: Thread) => {
     thread.messages.forEach((message:Message) => {
       if (!message.isRead){
-        ++undreadCount;
+        ++unreadCount;
       }
     });
     return unreadCount;
@@ -90,6 +90,6 @@ export const getUnreadMessagesCount = createSelector(getAllThreads, (threads: Th
   0
 ));
 
-export const getCurrentThread = createSelector(getThreadEntities, getThreadsState, (entities: ThreadsEntities, state: ThreadsStae) => entities[state.currentThreadId]);
+export const getCurrentThread = createSelector(getThreadsEntities, getThreadsState, (entities: ThreadsEntities, state: ThreadsState) => entities[state.currentThreadId]);
 
 export const getAllMessages = createSelector(getAllThreads, (threads: Thread[]) => threads.reduce((messages, thread) => [...messages, ...thread.messages], []).sort((m1, m2) => m1.sentAt - m2.sentAt));
