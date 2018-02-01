@@ -71,3 +71,25 @@ export const ThreadsReducer = function(state: ThreadsState = initialState, actio
       return state;
   }
 }
+
+export const getThreasdState = (state): ThreadState => state.threads;
+
+export const getThreadEntities = createSelector(getThreadsState, (state: ThreadsState) => state.entities);
+
+export const getAllThreads = createSelector(getThreadsEntities, (entities: ThreadsEntities) => Object.keys(entities).map((threadId) => entities[threadId]));
+
+export const getUnreadMessagesCount = createSelector(getAllThreads, (threads: Thread[]) => threads.reduce(
+  (unreadCount: number, thread: Thread) => {
+    thread.messages.forEach((message:Message) => {
+      if (!message.isRead){
+        ++undreadCount;
+      }
+    });
+    return unreadCount;
+  },
+  0
+));
+
+export const getCurrentThread = createSelector(getThreadEntities, getThreadsState, (entities: ThreadsEntities, state: ThreadsStae) => entities[state.currentThreadId]);
+
+export const getAllMessages = createSelector(getAllThreads, (threads: Thread[]) => threads.reduce((messages, thread) => [...messages, ...thread.messages], []).sort((m1, m2) => m1.sentAt - m2.sentAt));
