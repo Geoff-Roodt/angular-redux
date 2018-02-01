@@ -15,6 +15,11 @@ export interface AddMessageAction extends Action{
   message:Message;
 }
 
+export const SELECT_THREAD = '[Thread] Select';
+export interface SelectThreadAction extends Action{
+  thread: Thread;
+}
+
 export const addThread: ActionCreator<AddThreadAction> = (thread) => ({
   type:ADD_THREAD,
   thread: thread
@@ -28,7 +33,12 @@ export const addMessage: ActionCreator<AddMessageAction> = (thread: Thread, mess
     thread: thread
   };
 
-  const message: Message = Object.assign({}, defaults, messageArgs);
+export const selectThread: ActionCreator<SelectorThreadAction> = (thread) => ({
+  type: SELECT_THREAD,
+  thread: thread
+});
 
-  return {type:ADD_MESSAGE, thread: thread, message: message};
+const message: Message = Object.assign({}, defaults, messageArgs);
+
+return {type:ADD_MESSAGE, thread: thread, message: message};
 };
