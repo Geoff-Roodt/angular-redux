@@ -1,5 +1,6 @@
 # angular-redux
-A simplified, self-written version of Redux (core concepts)
+A simplified, self-written version of Redux (core concepts)  
+The comments for this project will be found in the Chat App
 
 ---  
 

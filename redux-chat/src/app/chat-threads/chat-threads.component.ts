@@ -19,12 +19,14 @@ export class ChatThreadsComponent implements OnInit {
     this.updateState();
   }
 
+  // Leverages our Redux Store to remind itself of the current Application State
   updateState(){
     const state = this.store.getState();
     this.threads = getAllThreads(state);
     this.currentThreadId = getCurrentThread(state).id;
   }
 
+  // This is how we invoke the Thread Selected ACTION, defined in Thread.Actions :)
   handleThreadClicked(thread: Thread){
     this.store.dispatch(ThreadActions.selectThread(thread));
   }

@@ -17,6 +17,7 @@ export class ChatNavBarComponent {
     this.updateState();
   }
 
+  // We leverage the User Actions to get the total count of unread messages across all the threads
   updateState(){
     this.unreadMessagesCount = getUnreadMessagesCount(this.store.getState());
   }

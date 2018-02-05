@@ -6,7 +6,10 @@
 
   <div class="messages" [ngClass]="{'msg-sent': !incoming, 'msg-receive': incoming}">
     <p>{{message.text}}</p>
+
+    <!-- The fromNow attribute hooks into the fromNow Pipe to convert our DateTime to a human readable text... eg. '10 seconds ago' -->
     <p class="time">&bull; {{message.sentAt | fromNow}}</p>
+    
   </div>
 
   <div class="avatar" *ngIf="incoming">

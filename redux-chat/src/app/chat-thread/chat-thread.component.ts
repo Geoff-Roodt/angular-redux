@@ -20,6 +20,7 @@ export class ChatThreadComponent implements OnInit {
   ngOnInit() {
   }
 
+  // Fires thre Thread Selected action
   clicked(event: any):void  {
     this.onThreadSelected.emit(this.thread);
     event.preventDefault;

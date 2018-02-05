@@ -16,12 +16,14 @@ export class ChatWindowComponent {
   draftMessage: {text:string};
   currentUser: User;
 
+  // We INJECT the AppStore as our store into Redux's Store property. This allows us to manipulate the Thread through Actions
   constructor(@Inject(AppStore) private store: Redux.Store<AppState>, private el: ElementRef) {
     store.subscribe(() => this.updateState());
     this.updateState();
     this.draftMessage = {text: ''};
   }
 
+  // Gets and sets the current user and thread. Scrolls to the bottom of the thread automatically.
   updateState(){
     const state = this.store.getState();
     this.currentThread = getCurrentThread(state);
@@ -29,6 +31,7 @@ export class ChatWindowComponent {
     this.scrollToBottom();
   }
 
+  // Moves to the bottom of the container for us.
   scrollToBottom(): void{
     const scrollPane: any = this.el.nativeElement.querySelector('.msg-container-base');
     if (scrollPane){
@@ -36,6 +39,7 @@ export class ChatWindowComponent {
     }
   }
 
+  // Adds a message to the thread through a Thread Action. Sets the message to empty once it has completed that.
   sendMessage():void{
     this.store.dispatch(ThreadActions.addMessage(this.currentThread, {
       author: this.currentUser,
@@ -45,6 +49,7 @@ export class ChatWindowComponent {
     this.draftMessage = {text:''};
   }
 
+  // Sends the message
   onEnter(event: any):void{
     this.sendMessage();
     event.preventDefault();

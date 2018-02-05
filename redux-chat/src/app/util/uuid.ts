@@ -1,3 +1,5 @@
+// SOME RANDOM CODE THAT CREATES A UUID... many happy return statements ?
+
 /* jshint bitwise:false, node:true */
 /* tslint:disable:no-bitwise no-var-keyword typedef */
 
